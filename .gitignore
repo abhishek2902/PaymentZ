@@ -1,0 +1,79 @@
+# ===============================
+# 📦 Node / React build artifacts
+# ===============================
+node_modules/
+dist/
+build/
+.npm/
+.pnp/
+.pnp.js
+
+# ===============================
+# 🧪 Testing
+# ===============================
+coverage/
+jest-test-results.json
+
+# ===============================
+# ⚙️ Environment files
+# ===============================
+# .env
+# .env.*
+# .env.local
+# .env.development.local
+# .env.test.local
+# .env.production.local
+
+# ===============================
+# 🪵 Logs
+# ===============================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ===============================
+# 🧠 IDE & Editor
+# ===============================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.iml
+
+# ===============================
+# 💻 OS Files
+# ===============================
+.DS_Store
+Thumbs.db
+
+# ===============================
+# 🧰 Build Tools / Frameworks
+# ===============================
+# Next.js
+.next/
+out/
+
+# Vite
+.vite/
+
+# CRA
+.cache/
+
+# ===============================
+# 📸 Misc / Optional
+# ===============================
+*.log
+*.app
+*.exe
+*.dll
+*.war
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv
