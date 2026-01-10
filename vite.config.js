@@ -35,7 +35,6 @@ export default defineConfig({
       },
     }),
   ],
-  base: '/PaymentZ/',
   resolve: {
     alias: [
       {
