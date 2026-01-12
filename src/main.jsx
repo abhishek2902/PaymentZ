@@ -93,7 +93,9 @@ function installErrorOverlay() {
   console.error = function (...args) {
     try {
       showError(args.map(String).join(' '));
-    } catch (e) {}
+    } catch (e) {
+      console.log(e)
+    }
     origConsoleError.apply(console, args);
   };
 }
