@@ -37,7 +37,8 @@ const layoutContent = (
 export const dashboardRoutes = [
   {
     path: 'dashboard',
-    element: CONFIG.auth.skip ? <>{layoutContent}</> : <AuthGuard>{layoutContent}</AuthGuard>,
+    // element: CONFIG.auth.skip ? <>{layoutContent}</> : <AuthGuard>{layoutContent}</AuthGuard>,
+    element: <>{layoutContent}</>,
     children: [
       { element: <Dashboard />, index: true },
       { path: 'payment-gateway', element: <PaymentGateway /> },
