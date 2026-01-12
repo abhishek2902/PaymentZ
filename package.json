@@ -104,5 +104,12 @@
     "typescript": "^5.5.4",
     "vite": "^5.4.2",
     "vite-plugin-checker": "^0.7.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "iOS >= 12"
+    ]
   }
 }
