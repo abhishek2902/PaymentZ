@@ -4,6 +4,7 @@
   "version": "6.1.0",
   "description": "Vite Starter & JavaScript",
   "private": true,
+  "homepage": ".",
   "type": "module",
   "scripts": {
     "dev": "vite",
