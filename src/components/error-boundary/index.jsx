@@ -31,7 +31,10 @@ class ErrorBoundary extends Component {
   };
 
   render() {
-    if (this.state.hasError) {
+    const { hasError, error, errorInfo } = this.state;
+    const { children } = this.props;
+
+    if (hasError) {
       return (
         <Container maxWidth="sm">
           <Box
@@ -48,15 +51,15 @@ class ErrorBoundary extends Component {
               Something went wrong
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mb: 4, textAlign: 'center' }}>
-              {this.state.error?.message || 'An unexpected error occurred'}
+              {error?.message || 'An unexpected error occurred'}
             </Typography>
             <Button variant="contained" onClick={this.handleReset}>
               Reload Page
             </Button>
-            {import.meta.env.DEV && this.state.errorInfo && (
+            {import.meta.env.DEV && errorInfo && (
               <Box sx={{ mt: 4, p: 2, bgcolor: 'error.lighter', borderRadius: 1, maxWidth: '100%', overflow: 'auto' }}>
                 <Typography variant="caption" component="pre" sx={{ whiteSpace: 'pre-wrap', fontSize: '0.75rem' }}>
-                  {this.state.errorInfo.componentStack}
+                  {errorInfo.componentStack}
                 </Typography>
               </Box>
             )}
@@ -65,7 +68,7 @@ class ErrorBoundary extends Component {
       );
     }
 
-    return this.props.children;
+    return children;
   }
 }
 

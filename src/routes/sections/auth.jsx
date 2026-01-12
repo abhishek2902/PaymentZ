@@ -10,8 +10,8 @@ import { GuestGuard } from 'src/auth/guard';
 // ----------------------------------------------------------------------
 
 // Enhanced lazy loading with error handling for iOS Safari
-const lazyWithRetry = (componentImport) => {
-  return lazy(async () => {
+const lazyWithRetry = (componentImport) =>
+  lazy(async () => {
     try {
       return await componentImport();
     } catch (error) {
@@ -21,7 +21,6 @@ const lazyWithRetry = (componentImport) => {
       return componentImport();
     }
   });
-};
 
 /** **************************************
  * Jwt
