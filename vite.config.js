@@ -1,12 +1,15 @@
 import path from 'path';
 import checker from 'vite-plugin-checker';
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react';
 import legacy from '@vitejs/plugin-legacy';
 
 const PORT = 3030;
 
 export default defineConfig({
+  define: {
+    'process.env': {},
+  },
   build: {
     target: 'es2015', // 🚨 REQUIRED for iOS
   },
