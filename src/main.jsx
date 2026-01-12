@@ -18,6 +18,35 @@ window.addEventListener('unhandledrejection', (event) => {
   console.error('Unhandled promise rejection:', event.reason);
 });
 
+
+window.onerror = function (msg, url, line, col, error) {
+  document.body.innerHTML = `
+<pre style="
+  white-space: pre-wrap;
+  padding: 16px;
+  color: red;
+  font-size: 14px;
+  background: #fff;
+">
+JS ERROR:
+${msg}
+
+FILE:
+${url}
+
+LINE:
+${line}:${col}
+
+STACK:
+${error && error.stack}
+</pre>
+  `;
+};
+
+
+
+
+
 // ----------------------------------------------------------------------
 
 const rootElement = document.getElementById('root');
