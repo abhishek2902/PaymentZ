@@ -12,6 +12,21 @@ export default defineConfig({
   },
   build: {
     target: 'es2015', // 🚨 REQUIRED for iOS
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: false, // Keep console for debugging
+      },
+    },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          mui: ['@mui/material', '@emotion/react', '@emotion/styled'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
   },
   plugins: [
     react(),
@@ -25,6 +40,8 @@ export default defineConfig({
       additionalLegacyPolyfills: [
         'regenerator-runtime/runtime',
       ],
+      modernPolyfills: true,
+      renderLegacyChunks: true,
     }),
 
     checker({

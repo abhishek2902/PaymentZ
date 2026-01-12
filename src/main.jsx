@@ -76,34 +76,18 @@ window.addEventListener('unhandledrejection', (event) => {
   console.error('Unhandled promise rejection:', event.reason);
   if (event.reason) {
     showFatalErrorOverlay(
-      `${event.reason?.message ?? 'Unhandled rejection'}\n${event.reason?.stack ?? ''}`
+      `Promise Rejection: ${event.reason?.message ?? 'Unhandled rejection'}\n${event.reason?.stack ?? ''}`
     );
   }
 });
 
-
+// Better error handler that doesn't break React mounting
 window.onerror = function (msg, url, line, col, error) {
-  document.body.innerHTML = `
-<pre style="
-  white-space: pre-wrap;
-  padding: 16px;
-  color: red;
-  font-size: 14px;
-  background: #fff;
-">
-JS ERROR:
-${msg}
-
-FILE:
-${url}
-
-LINE:
-${line}:${col}
-
-STACK:
-${error && error.stack}
-</pre>
-  `;
+  console.error('Window error:', { msg, url, line, col, error });
+  const errorMsg = `JS Error: ${msg}\nFile: ${url}\nLine: ${line}:${col}\n${error?.stack || ''}`;
+  showFatalErrorOverlay(errorMsg);
+  // Don't prevent default - let React ErrorBoundary handle it
+  return false;
 };
 
 
@@ -118,16 +102,41 @@ if (!rootElement) {
   throw new Error('Root element not found');
 }
 
+// Debug logging
+console.log('[Main] Starting React app initialization');
+console.log('[Main] Root element found:', !!rootElement);
+console.log('[Main] ReactDOM available:', !!ReactDOM);
+console.log('[Main] App component available:', typeof App !== 'undefined');
+
+// Add timeout to detect if app is stuck loading
+const loadingTimeout = setTimeout(() => {
+  console.error('[Main] App took more than 10 seconds to load - possible module loading issue');
+  const errorMsg = 'App is taking too long to load. This might be a module loading issue on iOS Safari.';
+  showFatalErrorOverlay(errorMsg);
+}, 10000);
+
 const root = ReactDOM.createRoot(rootElement);
 
-root.render(
-  <ErrorBoundary>
-    <HelmetProvider>
-      <BrowserRouter>
-        <Suspense fallback={<LoadingScreen />}>
-          <App />
-        </Suspense>
-      </BrowserRouter>
-    </HelmetProvider>
-  </ErrorBoundary>
-);
+try {
+  root.render(
+    <ErrorBoundary>
+      <HelmetProvider>
+        <BrowserRouter>
+          <Suspense fallback={<LoadingScreen />}>
+            <App />
+          </Suspense>
+        </BrowserRouter>
+      </HelmetProvider>
+    </ErrorBoundary>
+  );
+  
+  // Clear timeout if app renders successfully
+  setTimeout(() => {
+    clearTimeout(loadingTimeout);
+    console.log('[Main] App rendered successfully');
+  }, 1000);
+} catch (error) {
+  clearTimeout(loadingTimeout);
+  console.error('[Main] Failed to render app:', error);
+  showFatalErrorOverlay(`Failed to render app: ${error.message}\n${error.stack}`);
+}

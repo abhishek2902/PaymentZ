@@ -42,6 +42,13 @@ function SafeIPInfo({ children }) {
 export default function App() {
   useScrollToTop();
 
+  // Debug logging for iOS
+  if (typeof window !== 'undefined') {
+    console.log('[App] Rendering App component');
+    console.log('[App] User Agent:', navigator.userAgent);
+    console.log('[App] Is iOS:', /iPad|iPhone|iPod/.test(navigator.userAgent));
+  }
+
   return (
     <QueryClientProvider client={queryClient}>
       <SafeIPInfo>
