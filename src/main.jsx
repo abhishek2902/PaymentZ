@@ -128,7 +128,8 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import App from './app'; // or ./App
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <h1>HELLO IOS</h1>
+  <App />
 );
