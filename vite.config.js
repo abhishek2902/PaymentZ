@@ -11,7 +11,7 @@ export default defineConfig({
     'process.env': {},
   },
   build: {
-    target: 'es2015', // 🚨 REQUIRED for iOS
+    target: 'es2019', // 🚨 REQUIRED for iOS
     minify: 'terser',
     terserOptions: {
       compress: {

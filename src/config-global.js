@@ -1,12 +1,10 @@
 import { paths } from 'src/routes/paths';
 
-import packageJson from '../package.json';
-
 // ----------------------------------------------------------------------
 
 export const CONFIG = {
   appName: 'Quiklie Payments',
-  appVersion: packageJson.version,
+  appVersion: '6.1.0',
   // serverUrl: import.meta.env.VITE_STRIKE_SERVER_URL ?? '',
   serverUrl: import.meta.env.VITE_API_BASE_URL ?? '',
   assetsDir: import.meta.env.VITE_ASSETS_DIR ?? '',
