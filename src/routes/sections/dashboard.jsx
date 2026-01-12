@@ -7,8 +7,6 @@ import { DashboardLayout } from 'src/layouts/dashboard';
 import { LoadingScreen } from 'src/components/loading-screen';
 
 import { AuthGuard } from 'src/auth/guard';
-import Reporting from 'src/pages/dashboard/Reporting';
-import AdminOnboarding from 'src/pages/dashboard/AdminOnboarding';
 
 // ----------------------------------------------------------------------
 
@@ -23,6 +21,8 @@ const Users = lazy(() => import('src/pages/dashboard/Users'));
 const Connector = lazy(() => import('src/pages/dashboard/Connector'));
 const ConnectorEdit = lazy(() => import('src/pages/dashboard/ConnectorEdit'));
 const AdminEdit = lazy(() => import('src/pages/dashboard/AdminEdit'));
+const Reporting = lazy(() => import('src/pages/dashboard/Reporting'));
+const AdminOnboarding = lazy(() => import('src/pages/dashboard/AdminOnboarding'));
 
 // ----------------------------------------------------------------------
 
