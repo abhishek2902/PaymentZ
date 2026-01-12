@@ -15,7 +15,7 @@ import { ProgressBar } from 'src/components/progress-bar';
 import { SettingsDrawer, defaultSettings, SettingsProvider } from 'src/components/settings';
 
 import { AuthProvider } from 'src/auth/context/jwt';
-import { I18nProvider, LocalizationProvider } from './locales';
+// import { I18nProvider, LocalizationProvider } from './locales';
 
 // ----------------------------------------------------------------------
 
@@ -53,8 +53,8 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <SafeIPInfo>
         <Toaster position="top-right" />
-        <I18nProvider>
-          <LocalizationProvider>
+        {/* <I18nProvider>
+          <LocalizationProvider> */}
             <AuthProvider>
               <SettingsProvider settings={defaultSettings}>
                 <ThemeProvider>
@@ -66,8 +66,8 @@ export default function App() {
                 </ThemeProvider>
               </SettingsProvider>
             </AuthProvider>
-          </LocalizationProvider>
-        </I18nProvider>
+          {/* </LocalizationProvider>
+        </I18nProvider> */}
       </SafeIPInfo>
     </QueryClientProvider>
   );
