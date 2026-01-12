@@ -3,7 +3,7 @@ import 'src/global.css';
 // ----------------------------------------------------------------------
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
-import IPInfo from 'ip-info-react';
+// import IPInfo from 'ip-info-react';
 import { Router } from 'src/routes/sections';
 
 import { useScrollToTop } from 'src/hooks/use-scroll-to-top';
@@ -30,14 +30,14 @@ const queryClient = new QueryClient({
 });
 
 // Safe IPInfo wrapper for iOS compatibility
-function SafeIPInfo({ children }) {
-  try {
-    return <IPInfo>{children}</IPInfo>;
-  } catch (error) {
-    console.warn('IPInfo failed to load, continuing without it:', error);
-    return <>{children}</>;
-  }
-}
+// function SafeIPInfo({ children }) {
+//   try {
+//     return <IPInfo>{children}</IPInfo>;
+//   } catch (error) {
+//     console.warn('IPInfo failed to load, continuing without it:', error);
+//     return <>{children}</>;
+//   }
+// }
 
 export default function App() {
   useScrollToTop();
@@ -51,7 +51,7 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SafeIPInfo>
+      <>
         <Toaster position="top-right" />
         <I18nProvider>
           <LocalizationProvider>
@@ -68,7 +68,7 @@ export default function App() {
             </AuthProvider>
           </LocalizationProvider>
         </I18nProvider>
-      </SafeIPInfo>
+      </>
     </QueryClientProvider>
   );
 }
