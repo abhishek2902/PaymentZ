@@ -4,7 +4,7 @@ import 'src/global.css';
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // import { Toaster } from 'sonner';
 // import IPInfo from 'ip-info-react';
-// import { Router } from 'src/routes/sections';
+import { Router } from 'src/routes/sections';
 
 // import { useScrollToTop } from 'src/hooks/use-scroll-to-top';
 
@@ -74,5 +74,5 @@ import 'src/global.css';
 // }
 
 export default function App() {
-  return <h2>APP OK IOS</h2>;
+  return <Router />;
 }
