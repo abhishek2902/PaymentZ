@@ -4,12 +4,30 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/Levanta-favicon.png" />
     <meta name="theme-color" content="#000000" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+    <!-- iOS Safari specific meta tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <!-- Prevent iOS Safari from auto-formatting inputs -->
+    <meta name="format-detection" content="telephone=no, date=no" />
     <title>Super Admin | Quiklie Payments</title>
   </head>
 
   <body>
-    <div id="root"></div>
+    <noscript>
+      <div style="padding: 20px; text-align: center;">
+        <h1>JavaScript Required</h1>
+        <p>Please enable JavaScript to use this application.</p>
+      </div>
+    </noscript>
+    <div id="root">
+      <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div style="text-align: center;">
+          <p>Loading...</p>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

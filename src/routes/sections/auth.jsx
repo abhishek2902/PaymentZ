@@ -9,14 +9,28 @@ import { GuestGuard } from 'src/auth/guard';
 
 // ----------------------------------------------------------------------
 
+// Enhanced lazy loading with error handling for iOS Safari
+const lazyWithRetry = (componentImport) => {
+  return lazy(async () => {
+    try {
+      return await componentImport();
+    } catch (error) {
+      console.error('Failed to load module:', error);
+      // Retry once after a short delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      return componentImport();
+    }
+  });
+};
+
 /** **************************************
  * Jwt
  *************************************** */
 const Jwt = {
-  SignInPage: lazy(() => import('src/pages/auth/jwt/sign-in')),
-  SignUpPage: lazy(() => import('src/pages/auth/jwt/sign-up')),
-  ResetPasswordPage: lazy(() => import('src/pages/auth/jwt/reset-password')),
-  NewPasswordPage: lazy(() => import('src/pages/auth/jwt/new-password')),
+  SignInPage: lazyWithRetry(() => import('src/pages/auth/jwt/sign-in')),
+  SignUpPage: lazyWithRetry(() => import('src/pages/auth/jwt/sign-up')),
+  ResetPasswordPage: lazyWithRetry(() => import('src/pages/auth/jwt/reset-password')),
+  NewPasswordPage: lazyWithRetry(() => import('src/pages/auth/jwt/new-password')),
 };
 
 const authJwt = {

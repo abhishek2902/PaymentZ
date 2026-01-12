@@ -19,14 +19,32 @@ import { I18nProvider, LocalizationProvider } from './locales';
 
 // ----------------------------------------------------------------------
 
-// Create a client
-const queryClient = new QueryClient();
+// Create a client with better error handling for iOS
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 2,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
+// Safe IPInfo wrapper for iOS compatibility
+function SafeIPInfo({ children }) {
+  try {
+    return <IPInfo>{children}</IPInfo>;
+  } catch (error) {
+    console.warn('IPInfo failed to load, continuing without it:', error);
+    return <>{children}</>;
+  }
+}
+
 export default function App() {
   useScrollToTop();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <IPInfo>
+      <SafeIPInfo>
         <Toaster position="top-right" />
         <I18nProvider>
           <LocalizationProvider>
@@ -43,7 +61,7 @@ export default function App() {
             </AuthProvider>
           </LocalizationProvider>
         </I18nProvider>
-      </IPInfo>
+      </SafeIPInfo>
     </QueryClientProvider>
   );
 }
