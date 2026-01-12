@@ -88,7 +88,7 @@ const authJwt = {
 
 export const authRoutes = [
   {
-    path: 'auth',
+    path: '/auth',
     element: (
       <Suspense fallback={<SplashScreen />}>
         <Outlet />

@@ -17,6 +17,6 @@ export const mainRoutes = [
         <Outlet />
       </Suspense>
     ),
-    children: [{ path: '404', element: <Page404 /> }],
+    children: [{ path: '/404', element: <Page404 /> }],
   },
 ];
