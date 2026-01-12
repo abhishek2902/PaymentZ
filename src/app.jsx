@@ -1,4 +1,4 @@
-// import 'src/global.css';
+import 'src/global.css';
 
 // // ----------------------------------------------------------------------
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
