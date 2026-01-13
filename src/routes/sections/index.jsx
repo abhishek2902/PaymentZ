@@ -56,8 +56,8 @@ import { SplashScreen } from 'src/components/loading-screen';
 // Lazy loaders (route ARRAYS, not components)
 const loadAuthRoutes = () => import('./auth');
 const loadMainRoutes = () => import('./main');
-const loadDashboardRoutes = () => import('./dashboard');
-const loadOnboardingRoutes = () => import('./onboarding');
+// const loadDashboardRoutes = () => import('./dashboard');
+// const loadOnboardingRoutes = () => import('./onboarding');
 
 export function Router() {
   const [loadedRoutes, setLoadedRoutes] = useState(null);
@@ -65,11 +65,12 @@ export function Router() {
   useEffect(() => {
     Promise.all([
       loadAuthRoutes(),
-      loadDashboardRoutes(),
+      // loadDashboardRoutes(),
       loadMainRoutes(),
-      loadOnboardingRoutes(),
+      // loadOnboardingRoutes(),
     ]).then(
-      ([auth, dashboard, main, onboarding]) => {
+      // ([auth, dashboard, main, onboarding]) => {
+      ([auth, main,]) => {
         setLoadedRoutes([
           {
             path: '/',
@@ -77,9 +78,9 @@ export function Router() {
           },
 
           ...auth.authRoutes,
-          ...dashboard.dashboardRoutes,
+          // ...dashboard.dashboardRoutes,
           ...main.mainRoutes,
-          ...onboarding.onboardingRoutes,
+          // ...onboarding.onboardingRoutes,
 
           { path: '*', element: <Navigate to="/404" replace /> },
         ]);
