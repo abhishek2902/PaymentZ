@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Icon } from '@iconify/react';
 // import { Country, State, City } from 'country-state-city';
 import { useQuery } from '@tanstack/react-query';
@@ -129,6 +130,42 @@ export default function Step1AllSectionsCard({
   // const countries = Country.getAllCountries();
   // const states = selectedCountry ? State.getStatesOfCountry(selectedCountry) : [];
   // const cities = selectedState ? City.getCitiesOfState(selectedCountry, selectedState) : [];
+
+  // ✅ country-state-city lazy loader
+  const [cscModule, setCscModule] = useState(null);
+  const [loadingCsc, setLoadingCsc] = useState(false);
+
+  const loadCsc = useCallback(async () => {
+    if (cscModule) return cscModule;
+
+    try {
+      setLoadingCsc(true);
+      const mod = await import('country-state-city');
+      setCscModule(mod);
+      return mod;
+    } finally {
+      setLoadingCsc(false);
+    }
+  }, [cscModule]);
+
+  // derive selected values from company (Formik values)
+  const selectedCountry = company.country || '';
+  const selectedState = company.state || '';
+
+  const countries = useMemo(() => {
+    if (!cscModule) return [];
+    return cscModule.Country.getAllCountries();
+  }, [cscModule]);
+
+  const states = useMemo(() => {
+    if (!cscModule || !selectedCountry) return [];
+    return cscModule.State.getStatesOfCountry(selectedCountry);
+  }, [cscModule, selectedCountry]);
+
+  const cities = useMemo(() => {
+    if (!cscModule || !selectedCountry || !selectedState) return [];
+    return cscModule.City.getCitiesOfState(selectedCountry, selectedState);
+  }, [cscModule, selectedCountry, selectedState]);
 
   return (
     <Card variant="outlined" sx={{ borderRadius: 3, ...sx }}>
@@ -535,6 +572,104 @@ export default function Step1AllSectionsCard({
               ))}
             </TextField>
           </Grid> */}
+<Grid item xs={12} md={6}>
+  <TextField
+    select
+    label="Country"
+    fullWidth
+    required
+    value={selectedCountry}
+    onOpen={loadCsc} // ✅ load library only when dropdown opens
+    onFocus={loadCsc} // ✅ iOS friendly
+    onChange={(e) => {
+      const value = e.target.value;
+
+      // set company.country
+      setC('country')({ target: { value } });
+
+      // reset dependent fields
+      setC('state')({ target: { value: '' } });
+      setC('city')({ target: { value: '' } });
+    }}
+    error={errC('country')}
+    helperText={helpC('country')}
+  >
+    {loadingCsc && (
+      <MenuItem disabled value="">
+        Loading countries...
+      </MenuItem>
+    )}
+
+    {countries.map((country) => (
+      <MenuItem key={country.isoCode} value={country.isoCode}>
+        {country.name}
+      </MenuItem>
+    ))}
+  </TextField>
+</Grid>
+
+<Grid item xs={12} md={6}>
+  <TextField
+    select
+    label="State"
+    fullWidth
+    required
+    value={selectedState}
+    onOpen={loadCsc}
+    onFocus={loadCsc}
+    onChange={(e) => {
+      const value = e.target.value;
+
+      setC('state')({ target: { value } });
+
+      // reset city when state changes
+      setC('city')({ target: { value: '' } });
+    }}
+    error={errC('state')}
+    helperText={helpC('state')}
+    disabled={!selectedCountry || loadingCsc}
+  >
+    {loadingCsc && (
+      <MenuItem disabled value="">
+        Loading states...
+      </MenuItem>
+    )}
+
+    {states.map((state) => (
+      <MenuItem key={state.isoCode} value={state.isoCode}>
+        {state.name}
+      </MenuItem>
+    ))}
+  </TextField>
+</Grid>
+
+<Grid item xs={12} md={6}>
+  <TextField
+    select
+    label="City"
+    fullWidth
+    required
+    value={company.city || ''}
+    onOpen={loadCsc}
+    onFocus={loadCsc}
+    onChange={setC('city')}
+    error={errC('city')}
+    helperText={helpC('city')}
+    disabled={!selectedState || loadingCsc}
+  >
+    {loadingCsc && (
+      <MenuItem disabled value="">
+        Loading cities...
+      </MenuItem>
+    )}
+
+    {cities.map((city) => (
+      <MenuItem key={city.name} value={city.name}>
+        {city.name}
+      </MenuItem>
+    ))}
+  </TextField>
+</Grid>
           <Grid item xs={12} md={6} >
             <TextField
               label="Zipcode"
