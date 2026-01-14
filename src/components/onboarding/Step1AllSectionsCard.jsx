@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
-import { Country, State, City } from 'country-state-city';
+// import { Country, State, City } from 'country-state-city';
 import { useQuery } from '@tanstack/react-query';
 import apiClient from 'src/utils/apiClient';
 
@@ -123,12 +123,12 @@ export default function Step1AllSectionsCard({
   const [verifyingOtp, setVerifyingOtp] = useState(false);
   const [otpError, setOtpError] = useState('');
   
-  const [selectedCountry, setSelectedCountry] = useState(company.country || '');
-  const [selectedState, setSelectedState] = useState(company.state || '');
+  // const [selectedCountry, setSelectedCountry] = useState(company.country || '');
+  // const [selectedState, setSelectedState] = useState(company.state || '');
 
-  const countries = Country.getAllCountries();
-  const states = selectedCountry ? State.getStatesOfCountry(selectedCountry) : [];
-  const cities = selectedState ? City.getCitiesOfState(selectedCountry, selectedState) : [];
+  // const countries = Country.getAllCountries();
+  // const states = selectedCountry ? State.getStatesOfCountry(selectedCountry) : [];
+  // const cities = selectedState ? City.getCitiesOfState(selectedCountry, selectedState) : [];
 
   return (
     <Card variant="outlined" sx={{ borderRadius: 3, ...sx }}>
@@ -470,7 +470,7 @@ export default function Step1AllSectionsCard({
               onChange={setC('addressLine2')}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          {/* <Grid item xs={12} md={6}>
             <TextField
               select
               label="Country"
@@ -534,7 +534,7 @@ export default function Step1AllSectionsCard({
                 </MenuItem>
               ))}
             </TextField>
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} md={6} >
             <TextField
               label="Zipcode"
